@@ -1,0 +1,10 @@
+awscli
+pandas
+numpy
+scikit-learn
+matplotlib
+dvc
+scipy
+statsmodels
+mlflow
+xgboost

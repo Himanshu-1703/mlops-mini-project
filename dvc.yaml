@@ -1,0 +1,49 @@
+stages:
+  data_ingestion:
+    cmd: python .\src\data\data_ingestion.py
+    deps:
+    - .\src\data\data_ingestion.py
+    params:
+    - data_ingestion.random_state
+    - data_ingestion.test_size
+    outs:
+    - .\data\raw\
+
+  text_preprocessing:
+    cmd: python .\src\features\text_preprocessing.py train.csv test.csv
+    deps:
+    - .\data\raw\
+    - .\src\features\text_preprocessing.py
+    outs:
+    - .\data\interim\
+
+  feature_engineering:
+    cmd: python .\src\features\feature_engineering.py train_processed.csv test_processed.csv
+    deps:
+    - .\data\interim\
+    - .\src\features\feature_engineering.py
+    params:
+    - feature_engineering.max_features
+    outs:
+    - .\data\processed\
+    - .\models\transformers\
+
+  train:
+    cmd: python .\src\models\train.py train_final.csv
+    deps:
+    - .\data\processed\train_final.csv
+    - .\src\models\train.py
+    params:
+    - train.random_forest
+    metrics:
+    - .\reports\oob_score.json
+    outs:
+    - .\models\classifiers\
+  predict:
+    cmd: python .\src\models\predict.py train_final.csv test_final.csv
+    deps:
+    - .\data\processed
+    - .\models\classifiers\
+    - .\src\models\predict.py
+    metrics:
+    - .\reports\metrics.json
