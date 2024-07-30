@@ -37,6 +37,7 @@ stages:
     - train.logistic_regression
     outs:
     - .\models\classifiers\
+    
   predict:
     cmd: python .\src\models\predict.py train_final.csv test_final.csv
     deps:

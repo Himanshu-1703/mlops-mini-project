@@ -57,7 +57,7 @@ def load_model(model_path: Path):
         
 def calculate_metrics(data_name: str,metrics_obj: dict,y,y_pred):
     accuracy = accuracy_score(y,y_pred)
-    precision, recall, f1_score, support = precision_recall_fscore_support(y,y_pred)
+    precision, recall, f1_score, support = precision_recall_fscore_support(y,y_pred,average='binary')
     
     metrics_obj[data_name] = {'accuracy':accuracy,
                               'precision':precision,
