@@ -1,9 +1,9 @@
 schema: '2.0'
 stages:
   data_ingestion:
-    cmd: python .\src\data\data_ingestion.py
+    cmd: python src/data/data_ingestion.py
     deps:
-    - path: .\src\data\data_ingestion.py
+    - path: src/data/data_ingestion.py
       hash: md5
       md5: 42344ff1c6b3bfcbf30ddb291fb8af68
       size: 3805
@@ -12,38 +12,38 @@ stages:
         data_ingestion.random_state: 42
         data_ingestion.test_size: 0.2
     outs:
-    - path: .\data\raw\
+    - path: data/raw/
       hash: md5
       md5: 15fc212433fd653daf3a8fa57bd71fe4.dir
       size: 900635
       nfiles: 2
   text_preprocessing:
-    cmd: python .\src\features\text_preprocessing.py train.csv test.csv
+    cmd: python src/features/text_preprocessing.py train.csv test.csv
     deps:
-    - path: .\data\raw\
+    - path: data/raw/
       hash: md5
       md5: 15fc212433fd653daf3a8fa57bd71fe4.dir
       size: 900635
       nfiles: 2
-    - path: .\src\features\text_preprocessing.py
+    - path: src/features/text_preprocessing.py
       hash: md5
       md5: 0431f9b115c867ff6925cebf2ae503a8
       size: 4182
     outs:
-    - path: .\data\interim\
+    - path: data/interim/
       hash: md5
       md5: 17cabd159636652542015985ce22d288.dir
       size: 645148
       nfiles: 2
   feature_engineering:
-    cmd: python .\src\features\feature_engineering.py train_processed.csv test_processed.csv
+    cmd: python src/features/feature_engineering.py train_processed.csv test_processed.csv
     deps:
-    - path: .\data\interim\
+    - path: data/interim/
       hash: md5
       md5: 17cabd159636652542015985ce22d288.dir
       size: 645148
       nfiles: 2
-    - path: .\src\features\feature_engineering.py
+    - path: src/features/feature_engineering.py
       hash: md5
       md5: 90b138e91f35ec39f78856c5ab5719ee
       size: 4974
@@ -51,24 +51,24 @@ stages:
       params.yaml:
         feature_engineering.max_features:
     outs:
-    - path: .\data\processed\
+    - path: data/processed/
       hash: md5
       md5: 64c6d55006e513509a9db3a4575e978c.dir
       size: 294183700
       nfiles: 2
-    - path: .\models\transformers\
+    - path: models/transformers/
       hash: md5
       md5: 0bbc47ee0bbcdc46705b493ac8b32248.dir
       size: 185431
       nfiles: 2
   train:
-    cmd: python .\src\models\train.py train_final.csv
+    cmd: python src/models/train.py train_final.csv
     deps:
-    - path: .\data\processed\train_final.csv
+    - path: data/processed/train_final.csv
       hash: md5
       md5: b5464d52d6e5edbc3c4f0a6a862dcf41
       size: 235313938
-    - path: .\src\models\train.py
+    - path: src/models/train.py
       hash: md5
       md5: c80f6f3f77f00ac11925d0d1aef529a6
       size: 3140
@@ -79,30 +79,30 @@ stages:
           penalty: l2
           solver: liblinear
     outs:
-    - path: .\models\classifiers\
+    - path: models/classifiers/
       hash: md5
       md5: c8e6fc90d2e38887af7402dfac1c7f59.dir
       size: 315371
       nfiles: 1
   predict:
-    cmd: python .\src\models\predict.py train_final.csv test_final.csv
+    cmd: python src/models/predict.py train_final.csv test_final.csv
     deps:
-    - path: .\data\processed
+    - path: data/processed
       hash: md5
       md5: 64c6d55006e513509a9db3a4575e978c.dir
       size: 294183700
       nfiles: 2
-    - path: .\models\classifiers\
+    - path: models/classifiers/
       hash: md5
       md5: c8e6fc90d2e38887af7402dfac1c7f59.dir
       size: 315371
       nfiles: 1
-    - path: .\src\models\predict.py
+    - path: src/models/predict.py
       hash: md5
       md5: 5cd5285ca2dd8f6c1b95aa6944949325
       size: 3050
     outs:
-    - path: .\reports\metrics.json
+    - path: reports/metrics.json
       hash: md5
       md5: f29d40d984650ff1c68e84a7e1ae0e7a
       size: 446
