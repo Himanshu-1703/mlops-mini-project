@@ -3,11 +3,10 @@ import logging
 import sys
 from src.logger import CustomLogger
 from yaml import safe_load
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 import joblib
 from pathlib import Path
 from typing import Tuple
-import json
 
 
 TARGET = 'target'
@@ -84,20 +83,15 @@ def main():
     # split the data into X and y
     X_train, y_train = make_X_and_y(df=train_df,target_column=TARGET)
     # read the model parameters from params.yaml
-    model_params = read_parameters(params_file_path="params.yaml")['train']['random_forest']
+    model_params = read_parameters(params_file_path="params.yaml")['train']['logistic_regression']
     # fit the model on training data
-    clf = fit_model(model=RandomForestClassifier,
+    clf = fit_model(model=LogisticRegression,
                     params=model_params,
                     X_train=X_train,
                     y_train=y_train)
     logger.log_message("Model trained on training data")
-    oob_score = clf.oob_score_
-    oob_dict = {"oob_score":oob_score}
-    # open a json file and save the oob score in it
-    with open(Path(metrics_save_location / 'oob_score.json'),"w") as f:
-        json.dump(oob_dict,f,indent=4)
     # save the model
-    save_model(obj=clf,save_path=save_model_path / 'rf.joblib')
+    save_model(obj=clf,save_path=save_model_path / 'log_reg.joblib')
     
 
 

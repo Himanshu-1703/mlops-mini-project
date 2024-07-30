@@ -60,8 +60,7 @@ def do_data_splitting(dataframe: str) -> Tuple[pd.DataFrame,pd.DataFrame]:
     return train_data, test_data
 
 def filter_classes(df: pd.DataFrame,target_column :str = TARGET) -> pd.DataFrame:
-    val_counts = df[target_column].value_counts(normalize=True)
-    classes_to_filter = val_counts[val_counts >= 0.2].index.tolist()
+    classes_to_filter = ['happiness', 'sadness']
     return df.loc[df[target_column].isin(classes_to_filter), :]
     
 

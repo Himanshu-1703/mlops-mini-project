@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from src.logger import CustomLogger
 from sklearn.preprocessing import LabelEncoder
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 import joblib
 from yaml import safe_load
 import logging
@@ -36,12 +36,12 @@ def make_X_and_y(df: pd.DataFrame,target_column) -> Tuple[pd.DataFrame, pd.Serie
     return X, y
 
 
-def fit_tfidf_transformer(X_train: pd.Series, max_features: int):
-    tf_idf = TfidfVectorizer(max_features=max_features)
+def fit_bow_transformer(X_train: pd.Series, max_features: int):
+    bow = CountVectorizer(max_features=max_features)
     # fit the transformer on training data
-    tf_idf.fit(X_train)
-    logger.log_message('Tfidf transformer trained')
-    return tf_idf
+    bow.fit(X_train)
+    logger.log_message('bow transformer trained')
+    return bow
 
 
 def transform_data(X,transformer):
@@ -115,12 +115,12 @@ def main():
         X, y = make_X_and_y(df,TARTGET)
         
         if filename == 'train_processed.csv':
-            # tfidf fit on data
-            tf_idf = fit_tfidf_transformer(X,max_features)
+            # bow fit on data
+            bow = fit_bow_transformer(X,max_features)
             # transform the data
-            X_trans = transform_data(X,tf_idf)
+            X_trans = transform_data(X,bow)
             # save transformer
-            save_transformer(tf_idf,save_transformer_path / "tf_idf.joblib")
+            save_transformer(bow,save_transformer_path / "bow.joblib")
             # fit encoder on target
             encoder = fit_label_encoder(y)
             # transform the target
@@ -135,7 +135,7 @@ def main():
 
         elif filename == "test_processed.csv":
             # transform the data
-            X_trans = transform_data(X,tf_idf)
+            X_trans = transform_data(X,bow)
             # transform the target
             y_trans = encode_label(y,encoder)
             # concatenate the data

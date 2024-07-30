@@ -34,9 +34,7 @@ stages:
     - .\data\processed\train_final.csv
     - .\src\models\train.py
     params:
-    - train.random_forest
-    metrics:
-    - .\reports\oob_score.json
+    - train.logistic_regression
     outs:
     - .\models\classifiers\
   predict:
