@@ -45,4 +45,5 @@ stages:
     - models/classifiers/
     - src/models/predict.py
     metrics:
-    - reports/metrics.json
+    - reports/train_metrics.json
+    - reports/test_metrics.json

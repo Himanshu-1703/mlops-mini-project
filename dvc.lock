@@ -99,10 +99,14 @@ stages:
       nfiles: 1
     - path: src/models/predict.py
       hash: md5
-      md5: 5cd5285ca2dd8f6c1b95aa6944949325
-      size: 3050
+      md5: aa0a17639b24360dbb0cf520941f1fe9
+      size: 4846
     outs:
-    - path: reports/metrics.json
+    - path: reports/test_metrics.json
       hash: md5
-      md5: f29d40d984650ff1c68e84a7e1ae0e7a
-      size: 446
+      md5: 1c937b508472df203e875b10a68dc973
+      size: 170
+    - path: reports/train_metrics.json
+      hash: md5
+      md5: 694b1beaa611d62a5b1de0f99e4d47c3
+      size: 174
