@@ -75,13 +75,13 @@ stages:
     params:
       params.yaml:
         train.logistic_regression:
-          C: 0.6
+          C: 0.06
           penalty: l2
           solver: liblinear
     outs:
     - path: models/classifiers/
       hash: md5
-      md5: c8e6fc90d2e38887af7402dfac1c7f59.dir
+      md5: afc215e08b67e91af6f1ba32ea7014b6.dir
       size: 315371
       nfiles: 1
   predict:
@@ -94,7 +94,7 @@ stages:
       nfiles: 2
     - path: models/classifiers/
       hash: md5
-      md5: c8e6fc90d2e38887af7402dfac1c7f59.dir
+      md5: afc215e08b67e91af6f1ba32ea7014b6.dir
       size: 315371
       nfiles: 1
     - path: src/models/predict.py
@@ -104,9 +104,9 @@ stages:
     outs:
     - path: reports/test_metrics.json
       hash: md5
-      md5: 1c937b508472df203e875b10a68dc973
-      size: 170
+      md5: cfb81f40d075456d4c3693911289b313
+      size: 169
     - path: reports/train_metrics.json
       hash: md5
-      md5: 694b1beaa611d62a5b1de0f99e4d47c3
+      md5: 0ff2b078198bc25e8d1eed45844ad065
       size: 174

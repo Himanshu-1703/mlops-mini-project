@@ -7,6 +7,6 @@ feature_engineering:
 
 train:
   logistic_regression:
-    C: 0.6
+    C: 0.06
     penalty: l2
     solver: liblinear
