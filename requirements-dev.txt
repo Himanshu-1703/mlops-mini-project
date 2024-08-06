@@ -1,7 +1,5 @@
 -e .
-awscli
 dvc
-dvc[s3]
 nltk
 scikit-learn
 numpy
