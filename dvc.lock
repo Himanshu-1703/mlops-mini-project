@@ -99,8 +99,8 @@ stages:
       nfiles: 1
     - path: src/models/predict.py
       hash: md5
-      md5: aa0a17639b24360dbb0cf520941f1fe9
-      size: 4846
+      md5: f36a46dad272f496996abfa524bc52eb
+      size: 4798
     outs:
     - path: reports/test_metrics.json
       hash: md5
