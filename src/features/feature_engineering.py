@@ -131,7 +131,7 @@ def main():
             X_trans['target'] = y_trans
             logger.log_message(f'Shape of the final dataframe is {X_trans.shape}')
             # save the data
-            save_the_data(X_trans,save_data_path / f"{filename.replace("_processed","_final")}")
+            save_the_data(X_trans,save_data_path / f'{filename.replace("_processed","_final")}')
 
         elif filename == "test_processed.csv":
             # transform the data
@@ -142,7 +142,7 @@ def main():
             X_trans['target'] = y_trans
             logger.log_message(f'Shape of the final dataframe is {X_trans.shape}')
             # save the data
-            save_the_data(X_trans,save_data_path / f"{filename.replace("_processed","_final")}")
+            save_the_data(X_trans,save_data_path / f'{filename.replace("_processed","_final")}')
 
 
 
