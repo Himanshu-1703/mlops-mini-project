@@ -98,7 +98,7 @@ def main():
     save_data_path.mkdir(exist_ok=True)
     logger.log_message("Processed data folder created")
     save_transformer_path = root_path / "models" / "transformers"
-    save_transformer_path.mkdir(exist_ok=True)
+    save_transformer_path.mkdir(exist_ok=True,parents=True)
     logger.log_message("Transformers folder created")
     
     
