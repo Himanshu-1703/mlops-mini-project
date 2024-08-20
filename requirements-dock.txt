@@ -1,0 +1,8 @@
+scikit-learn
+flask
+mlflow
+joblib
+dagshub
+pandas
+numpy
+nltk

@@ -126,7 +126,7 @@ def main():
     
     logger.log_message("MlFlow logging started")
     # start mlflow tracking
-    with mlflow.start_run(run_name='register_model') as run:
+    with mlflow.start_run() as run:
         # track the params
         mlflow.log_params(clf.get_params())
         logger.log_message("parameters logged")
@@ -141,15 +141,22 @@ def main():
         logger.log_message("metrics logged")
         
         # log the model
-        log_model(sk_model=clf,artifact_path="model",
-                  registered_model_name="emotion_detection_log_reg")
-        logger.log_message("model logged and registered")
+        log_model(sk_model=clf,artifact_path="model")
+        logger.log_message("model logged")
         
         # log the code
         mlflow.log_artifacts("src","code")
         logger.log_message("src folder logged")
 
-
+    # register the model
+    run_id = run.info.run_id
+    artifact_path = "model"
+    
+    register_model_uri = f"runs:/{run_id}/{artifact_path}"
+    
+    mlflow.register_model(model_uri=register_model_uri,
+                          name="Logistic_Regression_Emotion_Detection")
+    
 if __name__ == "__main__":
     main()
 

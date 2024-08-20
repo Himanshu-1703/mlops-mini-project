@@ -10,3 +10,6 @@ train:
     C: 0.06
     penalty: l2
     solver: liblinear
+
+model:
+  model_version: 1
