@@ -62,8 +62,6 @@ jobs:
         run: docker container rm emotion-detection
         
       - name: Run the container
-        run: docker run --name emotion-detection \
-            -p 80:8000 -d -e DAGSHUB_USER_TOKEN=${{ secrets.DAGSHUB_TOKEN }} \
-            ${{ secrets.DOCKERHUB_USERNAME }}/emotion-detection-final:latest
+        run: docker run --name emotion-detection -p 80:8000 -d -e DAGSHUB_USER_TOKEN=${{ secrets.DAGSHUB_TOKEN }} ${{ secrets.DOCKERHUB_USERNAME }}/emotion-detection-final:latest
 
 
