@@ -58,10 +58,18 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
       
       - name: Authenticate ECR
-        run: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 891377050051.dkr.ecr.ap-south-1.amazonaws.com
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ secrets.ECR_REPOSITORY_URI }}
+          IMAGE_TAG: latest
+        run: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $REGISTRY
       
       - name: Pull the image from ECR
-        run: docker pull 891377050051.dkr.ecr.ap-south-1.amazonaws.com/emotion-detection:latest
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ secrets.ECR_REPOSITORY_URI }}
+          IMAGE_TAG: latest
+        run: docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Stop any running containers
         continue-on-error: true

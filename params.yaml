@@ -12,4 +12,4 @@ train:
     solver: liblinear
 
 model:
-  model_version: 7
+  model_version: 9
